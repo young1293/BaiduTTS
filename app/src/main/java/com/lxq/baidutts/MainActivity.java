@@ -43,7 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, SpeechSynthesizerListener {
+public class MainActivity extends AppCompatActivity implements SpeechSynthesizerListener {
 
 
     private TextView mTv;
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mBut_player;
     private Button mBut_jxu;
     private Button mBut_stop;
+    
     protected String appId = "11737343";
 
     protected String appKey = "Ms8tkkeiAt190C6ZGazOrqRR";
@@ -264,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 Log.e("--------", "已经走这里了");
-                mSpeechSynthesizer.speak("我不曾爱过你，明明觉得自己很冷静亲爱的爸爸斯诺怎么也没有想到，那个最爱她的爸爸突然之间消失不见了，随着一起消失的，还有家里很大一笔数目的钱。表面看起来，爸爸的精神状态一直很好，虽然他和单位闹得很僵，一直离职在家，可是单位并没有少给他发工资，他也乐得自在，每天在家给老婆和女儿做饭，每天的餐桌，都是他施展才艺的舞台。除此之外，那个面积不大的两居室，被他充分发挥想象，利用一楼的优势向外围墙扩展了一间书房，并把房间与书房之间连接起来，那个美丽的通道，抬起头就可以透过明亮的玻璃看到蓝天和白云而这个通道两边，放满了爸爸自己做的大鱼缸，里面游来游去的，是各种美丽的鱼儿，那个时候，斯诺最喜欢坐在鱼缸旁边的沙发上看书，累了抬头看看天，如果刚好外面下着雨，听着头顶滴滴答答的雨滴声，身边放着的，是爸爸为她切好的水果，那种感觉，是斯诺一辈子最珍贵的记忆斯诺学习成绩不是很好，为了能让她有机会在这所重点中学借读，爸爸妈妈托了很多关系。但是排名的落后一直让她倍感失落和自卑。她不知道父母这样的做法到底对不对，但是她可以确定的是，她过得十分不开心。");
+                mSpeechSynthesizer.speak("我亲爱的爸爸斯诺怎么也没有想到，那个最爱她的爸爸突然之间消失不见了，随着一起消失的，还有家里很大一笔数目的钱。表面看起来，爸爸的精神状态一直很好，虽然他和单位闹得很僵，一直离职在家，可是单位并没有少给他发工资，他也乐得自在，每天在家给老婆和女儿做饭，每天的餐桌，都是他施展才艺的舞台。除此之外，那个面积不大的两居室，被他充分发挥想象，利用一楼的优势向外围墙扩展了一间书房，并把房间与书房之间连接起来，那个美丽的通道，抬起头就可以透过明亮的玻璃看到蓝天和白云而这个通道两边，放满了爸爸自己做的大鱼缸，里面游来游去的，是各种美丽的鱼儿，那个时候，斯诺最喜欢坐在鱼缸旁边的沙发上看书，累了抬头看看天，如果刚好外面下着雨，听着头顶滴滴答答的雨滴声，身边放着的，是爸爸为她切好的水果，那种感觉，是斯诺一辈子最珍贵的记忆斯诺学习成绩不是很好，为了能让她有机会在这所重点中学借读，爸爸妈妈托了很多关系。但是排名的落后一直让她倍感失落和自卑。她不知道父母这样的做法到底对不对，但是她可以确定的是，她过得十分不开心。");
                 Log.e("--------", ">>>say: " + content);
             }
         });
@@ -290,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     
 
-    @Override
+  /*  @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.main_tv:
@@ -320,7 +321,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
-    }
+    }*/
 
     
     
