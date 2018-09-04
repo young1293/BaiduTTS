@@ -45,13 +45,12 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements SpeechSynthesizerListener {
 
-
     private TextView mTv;
     private EditText mEt;
     private Button mBut_player;
     private Button mBut_jxu;
     private Button mBut_stop;
-    
+
     protected String appId = "11737343";
 
     protected String appKey = "Ms8tkkeiAt190C6ZGazOrqRR";
@@ -78,9 +77,10 @@ public class MainActivity extends AppCompatActivity implements SpeechSynthesizer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-     /*   init();
+   /*  init();
         initialTts();
-        initPermission();   initdata();*/
+        initPermission();  
+        initdata();*/
 
         initialEnv();
         initialTts();
@@ -89,9 +89,36 @@ public class MainActivity extends AppCompatActivity implements SpeechSynthesizer
 
     }
 
-    /**
-     * 初始化语音合成客户端并启动
-     */
+    private void initview() {
+        mTv = (TextView) findViewById(R.id.main_tv);
+        mEt = (EditText) findViewById(R.id.main_et);
+        content = mEt.getText().toString();
+        mBut_player = (Button) findViewById(R.id.main_bt_player);
+        mBut_player.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("--------", "已经走这里了");
+                mSpeechSynthesizer.speak("我亲爱的爸爸斯诺怎么也没有想到，那个最爱她的爸爸突然之间消失不见了，随着一起消失的，还有家里很大一笔数目的钱。表面看起来，爸爸的精神状态一直很好，虽然他和单位闹得很僵，一直离职在家，可是单位并没有少给他发工资，他也乐得自在，每天在家给老婆和女儿做饭，每天的餐桌，都是他施展才艺的舞台。");
+                Log.e("--------", ">>>say: " + content);
+            }
+        });
+        mBut_jxu = (Button) findViewById(R.id.main_bt_Jxu);
+        mBut_jxu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSpeechSynthesizer.pause();
+            }
+        });
+        mBut_stop = (Button) findViewById(R.id.main_stop);
+        mBut_stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSpeechSynthesizer.resume();
+            }
+        });
+    }
+
+    // 初始化语音合成客户端并启动
     private void initialTts() {
         //获取语音合成对象实例
         this.mSpeechSynthesizer = SpeechSynthesizer.getInstance();
@@ -130,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements SpeechSynthesizer
             // Toast.makeText(this, "授权成功", Toast.LENGTH_LONG).show();
             mSpeechSynthesizer.initTts(TtsMode.MIX);
             mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_VOLUME, "9");
-            mSpeechSynthesizer.speak("授权成功");
+            mSpeechSynthesizer.speak("百度语音合成成功");
         } else {
             // 授权失败
             Log.e("--------", "授权失败");
@@ -139,50 +166,6 @@ public class MainActivity extends AppCompatActivity implements SpeechSynthesizer
 
 
     }
-
-
-    @Override
-    public void onSynthesizeStart(String s) {
-        //监听到合成开始
-        Log.e("--onSynthesizeStart---", ">>>onSynthesizeStart()<<< s: " + s);
-    }
-
-    @Override
-    public void onSynthesizeDataArrived(String s, byte[] bytes, int i) {
-        //监听到有合成数据到达
-        Log.e("--onSynthesizeDat---", ">>>onSynthesizeDataArrived()<<< s: " + s);
-    }
-
-    @Override
-    public void onSynthesizeFinish(String s) {
-        //监听到合成结束
-        Log.e("--onSynthesizeFinish---", ">>>onSynthesizeFinish()<<< s: " + s);
-    }
-
-    @Override
-    public void onSpeechStart(String s) {
-        //监听到合成并开始播放
-        Log.e("--onSpeechStart---", ">>>onSpeechStart()<<< s: " + s);
-    }
-
-    @Override
-    public void onSpeechProgressChanged(String s, int i) {
-        //监听到播放进度有变化
-        Log.e("--oressChanged---", ">>>onSpeechProgressChanged()<<< s: " + s);
-    }
-
-    @Override
-    public void onSpeechFinish(String s) {
-        //监听到播放结束
-        Log.e("--onSpeechFinish---", ">>>onSpeechFinish()<<< s: " + s);
-    }
-
-    @Override
-    public void onError(String s, SpeechError speechError) {
-        //监听到出错
-        Log.e("--onError---", ">>>onError()<<< description: " + speechError.description + ", code: " + speechError.code);
-    }
-
     private void initialEnv() {
         if (mSampleDirPath == null) {
             String sdcardPath = Environment.getExternalStorageDirectory().toString();
@@ -205,9 +188,9 @@ public class MainActivity extends AppCompatActivity implements SpeechSynthesizer
     }
 
     /**
-     * 将工程需要的资源文件拷贝到SD卡中使用（授权文件为临时授权文件，请注册正式授权）
-     *
-     * @param isCover 是否覆盖已存在的目标文件
+            * 将工程需要的资源文件拷贝到SD卡中使用（授权文件为临时授权文件，请注册正式授权）
+            *
+            * @param isCover 是否覆盖已存在的目标文件
      * @param source
      * @param dest
      */
@@ -256,40 +239,65 @@ public class MainActivity extends AppCompatActivity implements SpeechSynthesizer
     }
 
 
+    @Override
+    public void onSynthesizeStart(String s) {
+        //监听到合成开始
+        Log.e("--onSynthesizeStart---", ">>>onSynthesizeStart()<<< s: " + s);
+    }
+
+    @Override
+    public void onSynthesizeDataArrived(String s, byte[] bytes, int i) {
+        //监听到有合成数据到达
+        Log.e("--onSynthesizeDat---", ">>>onSynthesizeDataArrived()<<< s: " + s);
+    }
+
+    @Override
+    public void onSynthesizeFinish(String s) {
+        //监听到合成结束
+        Log.e("--onSynthesizeFinish---", ">>>onSynthesizeFinish()<<< s: " + s);
+    }
+
+    @Override
+    public void onSpeechStart(String s) {
+        //监听到合成并开始播放
+        Log.e("--onSpeechStart---", ">>>onSpeechStart()<<< s: " + s);
+    }
+
+    @Override
+    public void onSpeechProgressChanged(String s, int i) {
+        //监听到播放进度有变化
+        Log.e("--oressChanged---", ">>>onSpeechProgressChanged()<<< s: " + s);
+    }
+
+    @Override
+    public void onSpeechFinish(String s) {
+        //监听到播放结束
+        Log.e("--onSpeechFinish---", ">>>onSpeechFinish()<<< s: " + s);
+    }
+
+    @Override
+    public void onError(String s, SpeechError speechError) {
+        //监听到出错
+        Log.e("--onError---", ">>>onError()<<< description: " + s.toString() +"---"+ speechError.description + ", code: " + speechError.code);
+    }
+    
+    
+
+/*
+    
+
+    
+
+
     private void initview() {
-        mTv = (TextView) findViewById(R.id.main_tv);
-        mEt = (EditText) findViewById(R.id.main_et);
-        content = mEt.getText().toString();
-        mBut_player = (Button) findViewById(R.id.main_bt_player);
-        mBut_player.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("--------", "已经走这里了");
-                mSpeechSynthesizer.speak("我亲爱的爸爸斯诺怎么也没有想到，那个最爱她的爸爸突然之间消失不见了，随着一起消失的，还有家里很大一笔数目的钱。表面看起来，爸爸的精神状态一直很好，虽然他和单位闹得很僵，一直离职在家，可是单位并没有少给他发工资，他也乐得自在，每天在家给老婆和女儿做饭，每天的餐桌，都是他施展才艺的舞台。除此之外，那个面积不大的两居室，被他充分发挥想象，利用一楼的优势向外围墙扩展了一间书房，并把房间与书房之间连接起来，那个美丽的通道，抬起头就可以透过明亮的玻璃看到蓝天和白云而这个通道两边，放满了爸爸自己做的大鱼缸，里面游来游去的，是各种美丽的鱼儿，那个时候，斯诺最喜欢坐在鱼缸旁边的沙发上看书，累了抬头看看天，如果刚好外面下着雨，听着头顶滴滴答答的雨滴声，身边放着的，是爸爸为她切好的水果，那种感觉，是斯诺一辈子最珍贵的记忆斯诺学习成绩不是很好，为了能让她有机会在这所重点中学借读，爸爸妈妈托了很多关系。但是排名的落后一直让她倍感失落和自卑。她不知道父母这样的做法到底对不对，但是她可以确定的是，她过得十分不开心。");
-                Log.e("--------", ">>>say: " + content);
-            }
-        });
-        mBut_jxu = (Button) findViewById(R.id.main_bt_Jxu);
-        mBut_jxu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSpeechSynthesizer.pause();
-            }
-        });
-        mBut_stop = (Button) findViewById(R.id.main_stop);
-        mBut_stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSpeechSynthesizer.resume();
-            }
-        });
+       
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
-    
+    */
 
   /*  @Override
     public void onClick(View view) {
